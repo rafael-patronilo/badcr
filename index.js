@@ -7,7 +7,7 @@ const url = 'http://localhost:8080/posts';
 
 
 async function main(){
-    const response = await fetch(url)
+    const response = await fetch(url);
     const posts = await response.json();
     for(let post of posts) {
         const { title, content } = post;
