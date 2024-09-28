@@ -1,29 +1,30 @@
 const fs = require('fs');
 const ejs = require('ejs');
-const dompurify = require('dompurify');
+const xssFilters = require('xss-filters');
 
 function sanitizePost(post){
     sanitized = {
-        title: dompurify.sanitize(post.title),
-        content: dompurify.sanitize(post.content)
+        title: xssFilters.inHTMLData(post.title),
+        content: xssFilters.inHTMLData(post.content)
     }
     if (post.date !== undefined){
-        sanitized.date = dompurify.sanitize(post.date);
+        sanitized.date = xssFilters.inHTMLData(post.date);
     }
     return sanitized;
 }
 
 function renderPost(context){
+    context.post = sanitizePost(context.post);
     if (post["date"] !== undefined){
         return ejs.render(`
-            <h1><strong><%- context.index %></strong> <%- context.post.title %></h1>
-            <p><%- context.post.content %></p>
-            <p><%- context.post.date %></p>
-        `, {post:sanitizePost(post)});
+            <h1><strong><%- index %></strong> <%- post.title %></h1>
+            <p><%- post.content %></p>
+            <p><%- post.date %></p>
+        `, context);
     }
     return ejs.render(`
-        <h1><strong><%- context.index %></strong> <%- context.post.title %></h1>
-        <p><%- context.post.content %></p>
+        <h1><strong><%- index %></strong> <%- post.title %></h1>
+        <p><%- post.content %></p>
     `, context);
 }
 

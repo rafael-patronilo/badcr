@@ -15,9 +15,5 @@
     {
         "title": "Malicious",
         "content": "Give me your password >:)</p> <script type=\"text/javascript\">console.log(\"Very dangerous javascript\")</script><p>"
-    },
-    {
-        "title" : "malicious post",
-        "content" : "Hello\"); DELETE FROM posts WHERE true; --"
     }
 ]
