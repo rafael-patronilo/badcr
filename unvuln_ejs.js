@@ -3,7 +3,7 @@ const ejs = require('ejs');
 const xssFilters = require('xss-filters');
 
 function sanitizePost(post){
-    sanitized = {
+    let sanitized = {
         title: xssFilters.inHTMLData(post.title),
         content: xssFilters.inHTMLData(post.content)
     }
@@ -15,7 +15,7 @@ function sanitizePost(post){
 
 function renderPost(context){
     context.post = sanitizePost(context.post);
-    if (post["date"] !== undefined){
+    if (context.post["date"] !== undefined){
         return ejs.render(`
             <h1><strong><%- index %></strong> <%- post.title %></h1>
             <p><%- post.content %></p>
@@ -40,10 +40,10 @@ function renderBody(html){
 }
 
 function renderPosts(posts){
-    renderedPosts = [];
+    let renderedPosts = [];
     let i = 0;
-    for (post of posts){
-        context = {index: i, post: post};
+    for (let post of posts){
+        let context = {index: i, post: post};
         renderedPosts.push(renderPost(context));
         i++;
     }
