@@ -2,10 +2,7 @@ const ejs = require('ejs');
 const fs = require('fs');
 
 
-const url = 'http://localhost:8080/posts';
-
-
-async function main(){
+function main(){
     const posts_plain = fs.readFileSync('posts.json', encoding='utf8');
     const posts = JSON.parse(posts_plain);
     const html = ejs.render(`
