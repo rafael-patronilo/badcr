@@ -1,19 +1,14 @@
 const fetch = require('node-fetch');
-//const sqlite3 = require('sqlite3');
 const ejs = require('ejs');
 
-//const db = new sqlite3.Database('database.sqlite');
 
 const url = 'http://localhost:8080/posts';
 
 
 async function main(){
-    const response = await fetch(url);
+    const response = await fetch(url); // source
     const posts = await response.json();
-    // posts = [
-    //     { title: 'Post 1', content: 'Give me your password >:)</p> <script type="text/javascript">console.log("Very dangerous javascript")</script><p>' },
-    // ]
-    console.log(ejs.render(`
+    const html = ejs.render(`
         <html>
         <head><title>Post</title></head>
         <body>
@@ -23,7 +18,8 @@ async function main(){
             <% } %>
         </body>
         </html>
-        `, {posts:posts}));
+        `, {posts:posts}); //sink
+    console.log(html);
 }
 
 main();
