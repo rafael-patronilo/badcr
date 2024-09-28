@@ -14,18 +14,21 @@ function sanitizePost(post){
 }
 
 function renderPost(context){
-    context.post = sanitizePost(context.post);
-    if (context.post["date"] !== undefined){
+    let newContext = {
+        index: context.index,
+        post: sanitizePost(context.post)
+    };
+    if (newContext.post["date"] !== undefined){
         return ejs.render(`
             <h1><strong><%- index %></strong> <%- post.title %></h1>
             <p><%- post.content %></p>
             <p><%- post.date %></p>
-        `, context);
+        `, newContext);
     }
     return ejs.render(`
         <h1><strong><%- index %></strong> <%- post.title %></h1>
         <p><%- post.content %></p>
-    `, context);
+    `, newContext);
 }
 
 function renderBody(html){
