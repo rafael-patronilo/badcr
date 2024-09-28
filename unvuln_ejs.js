@@ -14,10 +14,7 @@ function sanitizePost(post){
 }
 
 function renderPost(context){
-    let newContext = {
-        index: context.index,
-        post: sanitizePost(context.post)
-    };
+    let newContext = { index: context.index, post: sanitizePost(context.post) };
     if (newContext.post["date"] !== undefined){
         return ejs.render(`
             <h1><strong><%- index %></strong> <%- post.title %></h1>

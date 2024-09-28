@@ -1,18 +1,31 @@
 const fs = require('fs');
 const ejs = require('ejs');
+const xssFilters = require('xss-filters');
+
+function sanitizePost(post){
+    let sanitized = {
+        title: post.title,
+        content: post.content
+    }
+    if (post.date !== undefined){
+        sanitized.date = post.date;
+    }
+    return sanitized;
+}
 
 function renderPost(context){
-    if (post["date"] !== undefined){
+    let newContext = { index: context.index, post: sanitizePost(context.post) };
+    if (newContext.post["date"] !== undefined){
         return ejs.render(`
-            <h1><strong><%- context.index %></strong> <%- context.post.title %></h1>
-            <p><%- context.post.content %></p>
-            <p><%- context.post.date %></p>
-        `, {post:post});
+            <h1><strong><%- index %></strong> <%- post.title %></h1>
+            <p><%- post.content %></p>
+            <p><%- post.date %></p>
+        `, newContext);
     }
     return ejs.render(`
-        <h1><strong><%- context.index %></strong> <%- context.post.title %></h1>
-        <p><%- context.post.content %></p>
-    `, context);
+        <h1><strong><%- index %></strong> <%- post.title %></h1>
+        <p><%- post.content %></p>
+    `, newContext);
 }
 
 function renderBody(html){
@@ -27,10 +40,10 @@ function renderBody(html){
 }
 
 function renderPosts(posts){
-    renderedPosts = [];
+    let renderedPosts = [];
     let i = 0;
-    for (post of posts){
-        context = {index: i, post: post};
+    for (let post of posts){
+        let context = {index: i, post: post};
         renderedPosts.push(renderPost(context));
         i++;
     }
