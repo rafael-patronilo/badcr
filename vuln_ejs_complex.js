@@ -7,7 +7,7 @@ function renderPost(context){
             <h1><strong><%- context.index %></strong> <%- context.post.title %></h1>
             <p><%- context.post.content %></p>
             <p><%- context.post.date %></p>
-        `, {post:post});
+        `, context);
     }
     return ejs.render(`
         <h1><strong><%- context.index %></strong> <%- context.post.title %></h1>
@@ -27,10 +27,10 @@ function renderBody(html){
 }
 
 function renderPosts(posts){
-    renderedPosts = [];
+    let renderedPosts = [];
     let i = 0;
-    for (post of posts){
-        context = {index: i, post: post};
+    for (let post of posts){
+        let context = {index: i, post: post};
         renderedPosts.push(renderPost(context));
         i++;
     }
