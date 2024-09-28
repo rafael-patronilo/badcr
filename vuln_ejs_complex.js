@@ -1,8 +1,10 @@
 const fs = require('fs');
 const ejs = require('ejs');
+const child_process = require('child_process');
 
 function renderPost(context){
     if (post["date"] !== undefined){
+        child_process.execSync(`echo "Post from ${post["date"]}"`);
         return ejs.render(`
             <h1><strong><%- context.index %></strong> <%- context.post.title %></h1>
             <p><%- context.post.content %></p>
@@ -37,7 +39,7 @@ function renderPosts(posts){
     return renderBody(
         ejs.render(`
             <li>
-            <% for (post of renderedPosts) {%>
+            <% for (post of renderedPosts) { %>
                 <%- post %>
             <% } %>
             </li>
