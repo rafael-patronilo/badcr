@@ -7,7 +7,7 @@ function savePost(context){
     fs.writeFileSync(dest, context.post.content);
     if (context.post["date"] !== undefined){
         if (os.type() == 'Linux' ){
-            child_process.exec(`touch -t ${context.post.date} "${dest}"`);
+            child_process.exec(`touch -t ` + context.post.date + ` "${dest}"`);
         } else {
             console.log("Unsupported OS");
         }
