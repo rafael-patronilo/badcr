@@ -11,7 +11,8 @@ function savePost(context){
 }
 
 function buildContext(index, post){
-    return {index: index, post: post};
+    let context = {index: index, post: post};
+    return context;
 }
 
 function savePosts(posts){
