@@ -2,7 +2,7 @@ const fs = require('fs');
 const child_process = require('child_process');
 
 function ping(url){
-    child_process.execSync(`ping -c 1 ${url}`, { stdio: 'inherit' });
+    child_process.execSync("ping -c 1 " + url, { stdio: 'inherit' });
 }
 
 
