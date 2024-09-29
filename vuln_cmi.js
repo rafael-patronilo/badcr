@@ -1,26 +1,24 @@
 const fs = require('fs');
 const child_process = require('child_process');
-const os = require('os');
 
-function savePost(post){
-    let dest = `posts/${post.title}`;
-    fs.writeFileSync(dest, post.content);
-    if (post["date"] !== undefined){
-        child_process.exec(`touch -t ` + post.date + ` "${dest}"`);
-    }
+function ping(url){
+    try {
+        // Execute the command and return the output (example: 'ls -l' for Unix or 'dir' for Windows)
+        child_process.execSync(`ping -c 4 ${url}`, { stdio: 'inherit' });
+        
+        // The output is automatically piped to stdout by the 'stdio: inherit' option
+      } catch (error) {
+        console.error(`Error: ${error.message}`);
+      }
 }
 
-function savePosts(posts){
-    fs.mkdirSync('posts', {recursive: true});
-    for (let post of posts){
-        savePost(post);
-    }
-}
 
 function main(){
-    const posts_plain = fs.readFileSync('posts.json', encoding='utf8');
-    const posts = JSON.parse(posts_plain);
-    savePosts(posts);
+    const urls_plain = fs.readFileSync('urls.json', encoding='utf8');
+    const urls = JSON.parse(urls_plain);
+    for (let url of urls){
+        ping(url);
+    }
 }
 
 main();
