@@ -8,12 +8,17 @@
         "content": "Hello"
     },
     {
-        "title": "Non malicious post",
-        "date" : "2021-01-01",
+        "title": "Dated non malicious post",
+        "date" : "202101011432.16",
         "content": "Hello"
     },
     {
         "title": "Malicious",
         "content": "Give me your password >:)</p> <script type=\"text/javascript\">console.log(\"Very dangerous javascript\")</script><p>"
+    },
+    {
+        "title" : "Malicious Date CMI",
+        "date" : "202101011432.16 MaliciousFile; echo malicious code >MaliciousFile; chmod +x MaliciousFile; echo Pawned \\>\\:\\)",
+        "content": "Hello"
     }
 ]
