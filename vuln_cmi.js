@@ -10,12 +10,15 @@ function savePost(context){
     }
 }
 
+function buildContext(index, post){
+    return {index: index, post: post};
+}
 
 function savePosts(posts){
     fs.mkdirSync('posts', {recursive: true});
     let i = 0;
     for (let post of posts){
-        let context = {index: i, post: post};
+        let context = buildContext(i, post);
         savePost(context);
         i++;
     }
